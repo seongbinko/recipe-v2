@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--
+            insert, update SQL 실행시 null값을 처리하기 위해서는
+            해당 컬럼의 타입을 정의하도록 요구하는 경우가 있다.
+            아래와 같이 설정하면 해당 컬럼의 타입을 정의하지 않아도
+            NULL값을 안전하게 입력할 수 있다.
+        -->
+        <setting name="jdbcTypeForNull" value="NULL"/>
+    </settings>
+    <!--
+    <typeAliases>
+
+            지정된 패키지의 클래스를 스캔해서 모든 VO 클래스에 대해 자동으로 별칭을 부여한다.
+            @Alias("별칭")이 없는 경우 클래스이름의 첫글자를 소문자로 	변환한 형태로 등록된다.
+
+        <package name="com.seongbindb.recipe.domain.recipes"/>
+    </typeAliases>
+     -->
+</configuration>
