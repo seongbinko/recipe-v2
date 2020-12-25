@@ -7,10 +7,9 @@
 4. Mybatis => JPA
 5. Jsp => thymeleaf
 6. 회원 가입,인증 JWT token
-7. Java 8  => Java 11
-    - 최신 문법 사용
+7. Java 8, 11 문법 사용
 8. TDD 기반 개발
-    - JUnit4 => JUnit5 전환 및 모든 api를 테스트기반 방식으로 변경한다.
+   - JUnit4 => JUnit5 전환 및 모든 api를 TDD 방식으로 변경한다.
 
 ## 개발 일지
 ### 2020.12.20
