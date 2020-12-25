@@ -1,6 +1,6 @@
-# 프로젝트 마이그레이션 (2020.12.20)
+# 프로젝트 전환 (2020.12.20)
 
-### 최신 개발 트렌드에 맞게 기존 [recipe](https://github.com/seongbinko/recipe) 프로젝트를 마이그레이션 하려고 한다.
+### 최신 개발 트렌드에 맞게 기존 [recipe](https://github.com/seongbinko/recipe) 프로젝트를 전환 하려고 한다.
 1. 전자정부프레임워크 3.9 (spring 4.3.2) => 스프링부트로 전환
 2. jQuery => vanilla Js 로 전환 ES6 문법 활용
 3. Oracle => PostgreSql
