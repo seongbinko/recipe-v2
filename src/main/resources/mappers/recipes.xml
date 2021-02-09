@@ -9,6 +9,6 @@
                RECIPE_MODDATE     as modDate,
                RECIPE_STATUS      as status,
                RECIPE_CATEGORY_NO as categoryNo
-        from RECIPE_V2.RECIPE
+        from RECIPE
     </select>
 </mapper>
