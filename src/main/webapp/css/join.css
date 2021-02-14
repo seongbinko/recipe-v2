@@ -1,0 +1,32 @@
+@charset "UTF-8";
+.conteiner {
+    margin-top: 70px;
+}
+
+.form-control {
+    height: 40px;
+}
+
+.join {
+    float: right;
+}
+
+.join a:hover {
+    color: red;
+}
+
+.glyphicon-asterisk {
+    color: red;
+}
+
+#Essential {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+

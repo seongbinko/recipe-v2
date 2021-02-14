@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seongbindb.recipe.mapper.UserMapper">
+
+    <select id="getUserById" parameterType="string" resultType="com.seongbindb.recipe.vo.User">
+		select
+			user_id	as id,
+			user_password	as password,
+			user_nickname	as nickname,
+			user_createdate as createDate,
+			user_moddate	as modDate,
+			user_email		as userEmail,
+			user_role		as role
+		from 
+			recipe_user
+		where
+			user_id = #{value}
+	</select>
+
+    <select id="searchUserReturnUser" parameterType="com.seongbindb.recipe.vo.User" resultType="com.seongbindb.recipe.vo.User">
+		select
+			user_id	as id,
+			user_password	as password,
+			user_nickname	as nickname,
+			user_createdate as createDate,
+			user_moddate	as modDate,
+			user_email		as userEmail,
+			user_role		as role
+		from 
+			recipe_user
+		where
+		  user_id = #{id} and
+		  user_password = #{password}
+	</select>
+</mapper>

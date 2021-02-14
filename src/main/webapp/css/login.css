@@ -1,0 +1,16 @@
+@charset "UTF-8";
+.conteiner {
+    margin-top: 130px;
+}
+
+.form-control {
+    height: 40px;
+}
+
+.join {
+    float: right;
+}
+
+.join a:hover {
+    color: red;
+}

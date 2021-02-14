@@ -1,15 +1,60 @@
-# 프로젝트 전환 (2020.12.20)
+# Recipe-v2 프로젝트 (2020.12.20)
+
+<details>
+<summary>Recipe(restful api) 프로젝트 개요(v1)</summary>
+<div markdown="1">       
+
+# 레시피 공유 커뮤니티 (with crawling)
+![screencapture-localhost-8090-2020-07-18-12_56_54](https://user-images.githubusercontent.com/60464424/87844224-3b435580-c8f6-11ea-9c44-dfd6d72b4d08.png)
+## 프로젝트 특징
+- 전자정부표준프레임워크에 대한 이해와 이를 이용한 웹 어플리케이션 구현
+- RESTful Api
+- 더미 데이터를 직접 등록이 아닌 크롤링을 통하여 DB에 등록 (https://github.com/seongbinko/recipe/tree/master/src/main/java/kr/co/edsk/recipe/crawler)
+## 개요
+- 명칭 : RECIPE
+- 개발 인원 : 1명
+- 개발 기간 :  2020.05.11 ~ 2020. 06. 25 (35일)
+- 담당 역할 :  주제선정, 분석/설계, 인프라 구축 및 레이아웃, 개발, 테스트, 시연
+- 주요 기능 : 레시피 등록 조회 수정 삭제, 스크랩, 레시피 댓글 답글 대댓글(계층형 구조), 더미데이터를 크롤링 방식으로 수집
+- 개발 환경 : 전자정부프레임워크 3.9
+- 데이터베이스 : ORACLE 11g
+- 웹 어플리케이션 서버 : Apache Tomcat 9.0
+- 형상관리 툴 : SVN
+- 간단 소개 : 개인들의 레시피를 공유하는 커뮤니티
+
+## [프로젝트 계획서.doc](https://github.com/seongbinko/recipe/raw/master/%EA%B0%9C%EB%B0%9C%EB%AC%B8%EC%84%9C/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EA%B3%84%ED%9A%8D%EC%84%9C.doc)
+## [프로젝트 설계서.pptx](https://github.com/seongbinko/recipe/raw/master/%EA%B0%9C%EB%B0%9C%EB%AC%B8%EC%84%9C/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EC%84%A4%EA%B3%84%EC%84%9C.pptx)
+
+</div>
+</details>
+
+## 목표
+1. Recipe 프로젝트 배포 및 서비스 운영
+2. 운영 환경에 맞게 프로젝트 전환 및 기능 추가
+<details>
+<summary>초기 프로젝트 목표</summary>
+<div markdown="1">
 
 ### 최신 개발 트렌드에 맞게 기존 [recipe](https://github.com/seongbinko/recipe) 프로젝트를 전환 하려고 한다.
-1. 전자정부프레임워크 3.9 (spring 4.3.2) => 스프링부트로 전환
+1. 전자정부프레임워크 3.9 (spring 4.3.2) => 스프링부트로(2.4.1) 전환
 2. jQuery => vanilla Js 로 전환 ES6 문법 활용
-3. Oracle => PostgreSql
+3. Oracle => PostreSQL
 4. Mybatis => JPA
 5. Jsp => thymeleaf
 6. 회원 가입,인증 JWT token
 7. Java 8, 11 문법 사용
 8. TDD 기반 개발
    - JUnit4 => JUnit5 전환 및 모든 api를 TDD 방식으로 변경한다.
+</div>
+</details>
+
+## 전환 및 추가 사항
+1. 전자정부프레임워크 3.9 (spring 4.3.2) => 스프링부트로(2.4.1) 전환
+2. Oracle => Mariadb(10.5.8)로 변경
+3. 회원 가입,로그인 기능 구현 (폼 인증 방식으로 변경)
+4. Java 8, 11 문법 사용 및 lombok 적용 
+5. TDD 기반 개발 *-앞으로 추가되는 기능에 한하여 진행*
+6. git으로 형상관리
 
 ## 개발 일지
 
@@ -28,3 +73,30 @@
 * 계정 관련 컨트롤러 생성 (스프링 시큐리티 적용) 및 테스트(Junit5)
 * nav, footer 뷰 생성
 * 로고 이미지 등록
+
+### 2020.02.14
+
+기존의 프로젝트 버전을 최신트렌드로 변경하는 것도 의미가 있지만 나의 서비스를 배포 운영하는 것으로 개발 방향을 바꾸어서 프로젝트를 진행하려 한다.
+그에 따라 프로젝트 계획을 일부 수정한다.
+
+1. 전자정부프레임워크 3.9 (spring 4.3.2) => 스프링부트로(2.4.1) 전환
+2. jQuery => ~~vanilla Js 로 전환 ES6 문법 활용~~ *-유지*
+3. Oracle => ~~PostreSQL~~ *-Mariadb로 변경*
+4. Mybatis => ~~JPA~~ *-유지*
+5. Jsp => ~~thymeleaf~~ *-유지*
+6. 회원 가입,로그인 기능 구현 ~~JWT token~~ *-폼 인증 방식으로 변경*
+7. Java 8, 11 문법 사용 및 lombok적
+8. TDD 기반 개발
+   - JUnit4 => JUnit5 전환 및 ~~모든~~ api를 TDD 방식으로 변경한다. *-앞으로 추가되는 기능에 한하여 진행*
+
+#### 수정사항
+1. recipe project 원 소스파일 적용 [recipe origin project](https://github.com/seongbinko/recipe) 
+2. application.properties 수정
+   - mariadb 설정 변경
+   - 이미지 파일 저장 디렉토리 수정
+   - jsp 설정 추가
+3. 뷰가 thymeleaf에서 jsp로 변경됨에 따라 pom.xml 수정 및 파일 디렉토리 수정
+4. lombok 적용 (dto, vo 클래스)
+5. Oracle에서 Mariadb로 바뀜에 따라 mappers/*.xml 파일 쿼리 변경 (계층형 쿼리, 분석함수(row_number()), 조인, 시퀀스 등 )
+6. 테이블 생성 및 데이터타입 변경
+   - RECIPE_USER 테이블의 PHONE_NUMBER 컬럼 삭제 및 EMAIL 컬럼 추가 (이메일 인증을 위함)

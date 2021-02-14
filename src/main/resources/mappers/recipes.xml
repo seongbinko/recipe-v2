@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seongbindb.recipe.mapper.RecipeMapper">
+    <!-- 등록 SQL -->
+    <insert id="insertRecipe" parameterType="com.seongbindb.recipe.vo.Recipe">
+        <selectKey keyProperty="recipeNo" resultType="int" order="BEFORE">
+            select
+                coalesce(max(recipe_no),0) +1
+            from recipe
+        </selectKey>
+        insert into recipe
+        (recipe_no, user_id, recipe_name, recipe_category_no)
+        values
+        (#{recipeNo}, #{userId}, #{recipeName}, #{recipeCategoryNo})
+    </insert>
+
+    <insert id="insertRecipeDetail" parameterType="com.seongbindb.recipe.vo.RecipeDetail">
+        <selectKey keyProperty="recipeDetailNo" resultType="int" order="BEFORE">
+            select
+                coalesce(max(recipe_detail_no),0) + 1
+            from
+            recipe_detail
+        </selectKey>
+        insert into recipe_detail
+        (recipe_detail_no, recipe_no, recipe_detail_content, recipe_detail_img, recipe_detail_step)
+        values
+        (#{recipeDetailNo}, #{recipeNo}, #{content}, #{recipeDetailImg}, #{recipeDetailStep})
+    </insert>
+
+    <insert id="insertRecipeScrap" parameterType="com.seongbindb.recipe.vo.RecipeScrap">
+		insert into recipe_scrap
+		(user_id, recipe_no)
+		values
+		(#{userId}, #{recipeNo})
+	</insert>
+    <!-- 조회 SQL  -->
+    <select id="selectRecipeByRecipeNo" parameterType="int" resultType="com.seongbindb.recipe.vo.Recipe">
+		select
+		    A.recipe_no   as recipeNo,
+		    B.user_id     as userId,
+		    B.user_nickname as nickName,
+            A.recipe_name as recipeName,
+		    A.recipe_createDate   as recipeCreateDate,
+		    A.recipe_moddate      as  recipeModDate,
+		    A.recipe_status       as recipeStatus,
+		    A.recipe_category_no  as recipeCategoryNo
+		from
+		    recipe A, recipe_user B 
+		where
+			A.user_id = B.user_id
+		and recipe_no = #{value}
+	</select>
+
+    <select id="selectRecipeDetailsByRecipeNo" parameterType="int" resultType="com.seongbindb.recipe.vo.RecipeDetail">
+		select
+			recipe_detail_no	as recipeDetailNo,
+			recipe_no			as recipeNo,
+			recipe_detail_content	as content,
+			recipe_detail_img		as recipeDetailImg,
+			recipe_detail_step		as recipeDetailStep
+		from
+			recipe_detail
+		where
+			recipe_no = #{value}
+		order by
+			recipe_detail_step 
+	</select>
+
+    <select id="selectRecipeScrapsByRecipeNo" parameterType="int" resultType="com.seongbindb.recipe.vo.RecipeScrap">
+		select
+			recipe_scrap_no		as recipeScrapNo,
+			user_id				as userId,
+			recipe_no			as recipeNo,
+			recipe_scrap_date	as recipeScrapDate
+		from
+			recipe_scrap
+		where
+			recipe_no = #{value}
+		order by
+			recipe_scrap_no
+	</select>
+
+    <select id="countScrapByRecipeNo" parameterType="int" resultType="int">
+		select
+			count(*)
+		from
+			recipe_scrap
+		where
+			recipe_no = #{value}
+	</select>
+
+    <select id="selectRecipeDetailsNoByRecipeNo" parameterType="int" resultType="int">
+		select
+		    recipe_detail_no
+		from
+		    recipe_detail
+		where
+		    recipe_no = #{value}
+	</select>
+
+    <select id="selectOneRecipeDetailByRecipeDetailNo" parameterType="int" resultType="com.seongbindb.recipe.vo.RecipeDetail">
+		select
+			recipe_detail_no	as recipeDetailNo,
+			recipe_no			as recipeNo,
+			recipe_detail_content	as content,
+			recipe_detail_img		as recipeDetailImg,
+			recipe_detail_step		as recipeDetailStep
+		from
+			recipe_detail
+		where
+			recipe_detail_no = #{value}
+	</select>
+
+    <!-- search && pagination -->
+    <select id="searchRecipeCount" parameterType="com.seongbindb.recipe.form.Searchform" resultType="int">
+        select
+        count(*)
+        from
+        recipe
+        <where>
+            <if test="categoryNo != null">
+                recipe_category_no = #{categoryNo}
+            </if>
+            <if test="keyword != null">
+                and recipe_name like '%' || #{keyword} || '%'
+            </if>
+        </where>
+    </select>
+
+    <select id="searchRecipesBysearchForm" parameterType="com.seongbindb.recipe.form.Searchform" resultType="com.seongbindb.recipe.dto.MainRecipesDto">
+        select
+        A.recipe_no recipeNo,
+        A.user_id userId,
+        D.user_nickname nickName,
+        A.recipe_name recipeName,
+        A.recipe_createdate createDate,
+        A.recipe_moddate modDate,
+        A.recipe_status status,
+        A.recipe_category_no categoryNo,
+        COALESCE(cnt,0) cnt,
+        B.recipe_detail_img thumbnailImg
+        from
+        recipe A left outer join (
+        select
+        count(*) cnt,recipe_no
+        from
+        recipe_scrap
+        group by recipe_no
+        ) C
+        on A.recipe_no = C.recipe_no ,
+        recipe_detail B,
+        recipe_user D
+        where
+        A.recipe_no = B.recipe_no
+        and A.recipe_status = 'Y'
+        and B.recipe_detail_content is null
+        and A.user_id = D.user_id
+        <if test="categoryNo != null">
+            and A.recipe_category_no = #{categoryNo}
+        </if>
+        <if test="keyword != null ">
+            and A.recipe_name like '%' || #{keyword} || '%'
+        </if>
+        order by
+        <if test="orderBy == 'date'">
+            A.recipe_moddate desc, A.recipe_createdate desc, cnt desc
+        </if>
+        <if test="orderBy == 'scrap'">
+            cnt desc, A.recipe_moddate desc, A.recipe_createdate desc
+        </if>
+        limit #{beginIndex} , #{endIndex}
+
+    </select>
+
+    <!-- 수정 SQL  -->
+    <update id="updateRecipe" parameterType="com.seongbindb.recipe.vo.Recipe">
+		update 
+			recipe
+		set
+			recipe_name = #{recipeName},
+			recipe_category_no = #{recipeCategoryNo},
+			recipe_moddate = now()
+		where
+			recipe_no = #{recipeNo}
+	</update>
+
+    <update id="updateRecipeDetail" parameterType="com.seongbindb.recipe.vo.RecipeDetail">
+		update
+			recipe_detail
+		set
+			recipe_detail_content = #{content},
+			recipe_detail_img	  = #{recipeDetailImg},
+			recipe_detail_step	  =	#{recipeDetailStep}
+		where
+			recipe_detail_no = #{recipeDetailNo}
+	</update>
+
+    <!-- 삭제 SQL  -->
+    <delete id="deleteRecipeDetailByDetailNo" parameterType="int">
+		delete 
+		from	
+			recipe_detail
+		where 	
+			recipe_detail_no = #{value}
+	</delete>
+
+    <delete id="deleteRecipeByRecipeNo" parameterType="int">
+		delete from recipe
+		where recipe_no = #{value}
+	</delete>
+
+    <delete id="deleteRecipeDetailByRecipeNo" parameterType="int">
+		delete from recipe_detail
+		where recipe_no = #{value}
+	</delete>
+
+    <delete id="deleteRecipeScrapByNo" parameterType="int">
+		delete from recipe_scrap
+		where recipe_no = #{value}
+	</delete>
+
+    <delete id="deleteMyRecipeScraps" parameterType="map">
+		delete from recipe_scrap
+		where recipe_no = #{recipeNo}
+		and   user_id = #{userId}
+	</delete>
+</mapper>

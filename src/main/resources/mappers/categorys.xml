@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seongbindb.recipe.mapper.CategoryMapper">
+
+    <select id="selectCategoryByName" parameterType="string" resultType="com.seongbindb.recipe.vo.RecipeCategory">
+		select  
+		    recipe_category_no  as recipeCategoryNo,
+		    recipe_category_name    as recipeCategoryName
+		from 
+		    recipe_category
+		where 
+		    recipe_category_name = #{value}
+	</select>
+
+    <select id="selectRecipeCategoryByCategoryNo" parameterType="int" resultType="com.seongbindb.recipe.vo.RecipeCategory">
+		select  
+		    recipe_category_no  as recipeCategoryNo,
+		    recipe_category_name    as recipeCategoryName
+		from 
+		    recipe_category
+		where 
+		    recipe_category_no = #{value}
+	</select>
+</mapper>
