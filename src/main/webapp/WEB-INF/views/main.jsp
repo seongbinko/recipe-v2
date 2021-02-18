@@ -6,6 +6,8 @@
     <title>Main</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_csrf_header" content="${_csrf.headerName}">
+    <meta name="_csrf" content="${_csrf.token}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -23,7 +25,7 @@
 </head>
 <body>
 <header>
-    <%@include file="common/navheader.jsp" %>
+    <%@include file="common/nav.jsp" %>
 </header>
 <section>
     <div class="container">
@@ -76,5 +78,6 @@
         </div>
     </div>
 </section>
+<%@include file="common/footer.html" %>
 </body>
 </html>

@@ -6,8 +6,6 @@ package com.seongbindb.recipe.service;
 import com.seongbindb.recipe.mapper.CommentMapper;
 import com.seongbindb.recipe.vo.RecipeComment;
 import com.seongbindb.recipe.vo.User;
-import lombok.RequiredArgsConstructor;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +24,6 @@ import java.util.List;
  * @Version : 1.0
  */
 @Service
-@MapperScan(basePackages = "com.seongbindb.recipe.mapper")
 public class CommentServiceImpl implements CommentService {
 
 	@Autowired

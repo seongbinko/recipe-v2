@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+
 /**
  * <pre>
  * 레시피 등록 수정을 할때 폼으로 받고 폼 형식으로 사용자의 정보를 담기 위한 DTO
@@ -15,10 +16,7 @@ import java.util.List;
  * @Date : 2021. 2. 14. 오전 11:38:02
  * @Version : 1.0
  */
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@Data
 @ToString
 public class RecipeRegisterform {
     private Integer recipeNo;

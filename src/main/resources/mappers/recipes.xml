@@ -122,7 +122,7 @@
                 recipe_category_no = #{categoryNo}
             </if>
             <if test="keyword != null">
-                and recipe_name like '%' || #{keyword} || '%'
+                and recipe_name like concat('%',#{keyword},'%')
             </if>
         </where>
     </select>
@@ -158,8 +158,8 @@
         <if test="categoryNo != null">
             and A.recipe_category_no = #{categoryNo}
         </if>
-        <if test="keyword != null ">
-            and A.recipe_name like '%' || #{keyword} || '%'
+        <if test="keyword != null">
+            and A.recipe_name like concat('%',#{keyword},'%')
         </if>
         order by
         <if test="orderBy == 'date'">

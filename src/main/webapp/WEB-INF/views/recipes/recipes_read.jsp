@@ -14,7 +14,8 @@
 </head>
 <body>
 <header>
-    <%@include file="../common/navheader.jsp" %>
+    <%@ include file="../common/tag.jsp" %>
+    <%@include file="../common/nav.jsp" %>
 </header>
 <section>
     <div class="container" id="recipeNo" data-recipeno="${recipeInfo.recipe.recipeNo }">
@@ -41,10 +42,8 @@
                         <c:choose>
                             <c:when test="${recipeInfo.role eq 'author'}">
                                 <a class="btn btn-primary"
-                                   href="/recipes/update/${recipeInfo.recipe.recipeNo }"><spring:message
-                                        code="button.update"/></a>
-                                <button id="delete-btn" class="btn btn-danger" value="${recipeInfo.recipe.recipeNo }">
-                                    <spring:message code="button.delete"/></button>
+                                   href="/recipes/update/${recipeInfo.recipe.recipeNo }">수정</a>
+                                <button id="delete-btn" class="btn btn-danger" value="${recipeInfo.recipe.recipeNo }">삭제</button>
                             </c:when>
                             <c:otherwise>
                                 <button id="do-scrap" class="btn btn-default" type="button"

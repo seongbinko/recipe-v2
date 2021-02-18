@@ -62,13 +62,19 @@ function search(pageNo, keyword, orderBy, categoryNo) {
     data.orderBy = orderBy;
     data.categoryNo = categoryNo;
 
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
     $.ajax({
         type: "POST",
         url: "/recipes",
+        beforeSend: function(xhr){
+            xhr.setRequestHeader(header, token);
+        },
         data: JSON.stringify(data),
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (result) {
+            console.log(result)
             var pg = result.pg;
             var recipes = result.recipes
 

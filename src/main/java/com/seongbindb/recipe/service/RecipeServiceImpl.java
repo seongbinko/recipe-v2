@@ -40,10 +40,10 @@ import java.util.Map;
 public class RecipeServiceImpl implements RecipeService {
 
     @Autowired
-    private RecipeMapper recipeMapper;
+    RecipeMapper recipeMapper;
 
     @Autowired
-    private CategoryMapper categoryMapper;
+    CategoryMapper categoryMapper;
 
     /**
      * 레시피 원본 이미지를 저장하는 디렉토리

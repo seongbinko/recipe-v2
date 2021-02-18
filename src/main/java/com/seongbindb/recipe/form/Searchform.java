@@ -14,10 +14,7 @@ import lombok.*;
  * @Date    : 2021. 2. 14. 오후 7:33:24
  * @Version : 1.0
  */
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@Data
 @ToString
 public class Searchform {
     private Integer pageNo;

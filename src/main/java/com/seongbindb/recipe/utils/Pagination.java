@@ -1,5 +1,7 @@
 package com.seongbindb.recipe.utils;
 
+import lombok.ToString;
+
 /**
  * <pre>
  * 페이징 처리를 위한 클래스
@@ -10,6 +12,7 @@ package com.seongbindb.recipe.utils;
  * @Date : 2021. 2. 14. 오전 11:33:28
  * @Version : 1.0
  */
+@ToString
 public class Pagination {
 
     private final int rowsPerPage;
@@ -22,12 +25,6 @@ public class Pagination {
         this.pagesPerPage = 4;
         this.pageNo = pageNo;
         this.totalRows = totalRows;
-    }
-
-    @Override
-    public String toString() {
-        return "Pagination [rowsPerPage=" + rowsPerPage + ", pagesPerPage=" + pagesPerPage + ", pageNo=" + pageNo
-                + ", totalRows=" + totalRows + "]";
     }
 
     /**

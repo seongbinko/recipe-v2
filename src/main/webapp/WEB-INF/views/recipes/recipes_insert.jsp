@@ -23,7 +23,7 @@
 </head>
 <body>
 <header>
-    <%@ include file="../common/navheader.jsp" %>
+    <%@ include file="../common/nav.jsp" %>
 </header>
 <section>
     <div class="container">
@@ -109,10 +109,8 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-4">
-                    <button id="btn-update" type="submit" class="btn btn-primary btn-lg" value=""><spring:message
-                            code="button.create"/></button>
-                    <button id="btn-cancle" type="button" class="btn btn-default btn-lg" value=""><spring:message
-                            code="button.reset"/></button>
+                    <button id="btn-update" type="submit" class="btn btn-primary btn-lg" value="">등록</button>
+                    <button id="btn-cancle" type="button" class="btn btn-default btn-lg" value="">취소</button>
                 </div>
             </div>
         </form>

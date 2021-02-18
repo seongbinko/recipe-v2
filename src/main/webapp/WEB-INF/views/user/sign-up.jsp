@@ -3,13 +3,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>로그인</title>
+    <title>회원가입</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_csrf_header" content="${_csrf.headerName}">
+    <meta name="_csrf" content="${_csrf.token}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/login.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .container {
+            max-width: 100%;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -17,7 +23,7 @@
 </header>
 <div class="container">
     <div class="py-5 text-center">
-        <h2>로그인</h2>
+        <h2>회원 가입</h2>
     </div>
     <div class="col-sm-3"></div>
     <div class="form-block">
@@ -37,8 +43,8 @@
                     공백없이 문자와 숫자로만 3자 이상 20자 이내로 입력하세요. 가입후에 변경할 수 있습니다.<br/>
                 </small>
                 <c:if test="${map['nickname'] ne null}">
-                    <small class="form-text text-danger">Nickname
-                        Error: <c:out value="${map['nickname']}"/> </small>
+                <small class="form-text text-danger">Nickname
+                    Error: <c:out value="${map['nickname']}"/> </small>
                 </c:if>
             </div>
 
@@ -80,12 +86,18 @@
 
             <div class="form-group">
                 <button aria-describedby="submitHelp" class="btn btn-success btn-block"
-                        type="submit">로그인
+                        type="submit">가입하기
                 </button>
+                <small class="form-text text-muted" id="submitHelp">
+                    <a href="#">약관</a>에 동의하시면 가입하기 버튼을 클릭하세요.
+                </small>
             </div>
         </form>
     </div>
     <div class="col-sm-3"></div>
 </div>
 </body>
+<script src="/js/sign-up.js"></script>
+<script>
+</script>
 </html>
