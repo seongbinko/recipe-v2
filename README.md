@@ -102,5 +102,14 @@
    - RECIPE_USER 테이블의 PHONE_NUMBER 컬럼 삭제 및 EMAIL 컬럼 추가 (이메일 인증을 위함)
    
 ### 2021.02.18
-1. 전자정부 프레임워크 관련 디렉토리, 파일 제거
+1. 전자정부프레임워크 관련 디렉토리, 파일 제거
+2. RECIPE_USER 테이블 컬럼 추가 (USER_EMAIL_TOKEN, USER_EMAIL_VERIFIED)
+3. 스프링 시큐리티 적용
+4. 회원가입 기능 추가
+   - 프론트단 유효성 검사
+   - spring validation 적용
+   - 패스워드 인코더 사용 ()
+   - 회원가입시 이메일 인증을 해야 사이트 이용하도록 구현 (토큰 활용)
+   - footer.html 카피라이트 추가
+   - TDD 방식으로 개발 (Junit 5)
 
