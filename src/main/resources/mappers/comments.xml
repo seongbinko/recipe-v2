@@ -3,40 +3,39 @@
 <mapper namespace="com.seongbindb.recipe.mapper.CommentMapper">
 
     <select id="selectCommentsByRecipeNo" parameterType="int" resultType="com.seongbindb.recipe.vo.RecipeComment">
-        with recursive fn_recipe_comment
-                           as
-                           (
-                               select 1  				 as	clevel,
-                                      recipe_no          as recipeNo,
-                                      comment_no         as commentNo,
-                                      comment_parent_no  as commentParentNo,
-                                      comment_content    as commentContent,
-                                      comment_writer     as commentWriter,
-                                      comment_createdate as commentCreateDate,
-                                      comment_moddate    as commentModDate,
-                                      comment_status     as commentStatus
-
-                               from RECIPE_COMMENT
-
-                               where recipe_no = 14
-
-                               union all
-
-                               select c.clevel + 1
-                                    , b.recipe_no          as recipeNo
-                                    , b.comment_no         as commentNo
-                                    , b.comment_parent_no  as commentParentNo
-                                    , b.comment_content    as commentContent
-                                    , b.comment_writer     as commentWriter
-                                    , b.comment_createdate as commentCreateDate
-                                    , b.comment_moddate    as commentModDate
-                                    , b.comment_status     as commentStatus
-                               from recipe_comment b,
-                                    fn_recipe_comment c
-
-                               where c.commentNo = b.comment_parent_no
-                           )
-        select *
+        with recursive fn_recipe_comment as (
+            select
+                recipe_no          as recipeNo,
+                comment_no         as commentNo,
+                comment_parent_no  as commentParentNo,
+                comment_content    as commentContent,
+                comment_writer     as commentWriter,
+                comment_createdate as commentCreateDate,
+                comment_moddate    as commentModDate,
+                comment_status     as commentStatus,
+                1 as commentLevel
+            from
+                recipe_comment
+            where
+                comment_parent_no is null
+              and recipe_no = #{value}
+            union all
+            select
+                recipe_no          as recipeNo,
+                comment_no         as commentNo,
+                comment_parent_no  as commentParentNo,
+                comment_content    as commentContent,
+                comment_writer     as commentWriter,
+                comment_createdate as commentCreateDate,
+                comment_moddate    as commentModDate,
+                comment_status     as commentStatus,
+                C.commentLevel + 1 as commentLevel
+            from
+                recipe_comment B
+                    inner join fn_recipe_comment  C on B.comment_parent_no = C.commentNo
+        )
+        select
+            *
         from fn_recipe_comment
     </select>
 

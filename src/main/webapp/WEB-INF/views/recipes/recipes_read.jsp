@@ -3,18 +3,23 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>Detail</title>
+    <title>레시피</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_csrf_header" content="${_csrf.headerName}">
+    <meta name="_csrf" content="${_csrf.token}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.0/dist/jdenticon.min.js" async
+            integrity="sha384-VngWWnG9GS4jDgsGEUNaoRQtfBGiIKZTiXwm9KpgAeaRn6Y/1tAFiyXqSzqC8Ga/" crossorigin="anonymous">
+    </script>
     <style type="text/css"></style>
 </head>
 <body>
 <header>
-    <%@ include file="../common/tag.jsp" %>
     <%@include file="../common/nav.jsp" %>
 </header>
 <section>
@@ -32,7 +37,7 @@
                 <br>
                 <div class="caption">
                     <h2>${recipeInfo.recipe.recipeName }</h2>
-                    by<span> ${recipeInfo.recipe.nickName} </span>스크랩: <span id="scrap-amount"
+                    by <span style="color: green;"><a href="/user/${recipeInfo.recipe.nickName}">${recipeInfo.recipe.nickName}</a> </span>스크랩: <span id="scrap-amount"
                                                                              data-scrap-status="${recipeInfo.scrapStatus }">${fn:length(recipeInfo.recipeScraps) }</span>회
                     등록일: <span><fmt:formatDate value="${recipeInfo.recipe.recipeCreateDate}"
                                                pattern="yyyy-MM-dd HH:mm"/> </span>
@@ -100,7 +105,7 @@
         <div id="comment-box">
             <div id="comment-show"></div>
             <div id="comment-writer">
-                <h3>${USER.nickname }
+                <h3>
                     <button class="attach-comment">등록</button>
                 </h3>
                 <textarea rows="10" cols="124" placeholder="댓글을 남겨주세요" maxlength="200"></textarea>

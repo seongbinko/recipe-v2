@@ -20,7 +20,6 @@ public class DateUtils {
     private static final SimpleDateFormat monthDateFormat = new SimpleDateFormat("MM");
     private static final SimpleDateFormat fullDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-
     /**
      * <pre>
      * 년 월 일로 문자열 반환

@@ -86,7 +86,7 @@ var recipe = {
 			<input type='hidden' name='stepIndex' value='${stepNumber - 1}'>
 			<input type='hidden' name='recipeDetailNo'>
 			<div class='col-sm-3'>
-			<img name='pre_img_${stepNumber}'alt='cooking' src='/images/logo/headerlogo01.png' width='180px;'>
+			<img name='pre_img_${stepNumber}'alt='cooking' src='/images/logo/biglogo.png' width='180px;'>
 			</div>
 			<div class='form-group'>
 			<textarea rows='8' cols='70' style='resize: none;' placeholder='요리방법을 작성해주세요' name='content' required></textarea>

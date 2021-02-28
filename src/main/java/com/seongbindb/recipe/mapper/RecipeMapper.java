@@ -211,4 +211,13 @@ public interface RecipeMapper {
      * @return List<MainRecipesDto>
      */
     List<MainRecipesDto> searchRecipesBysearchForm(Searchform searchform);
+
+
+    /**
+     * <pre>
+     * 레시피 번호에 해당하는 댓글들을 삭제한다.
+     * </pre>
+     * @param recipeNo
+     */
+    void deleteRecipeCommentByNo(int recipeNo);
 }

@@ -163,10 +163,10 @@
         </if>
         order by
         <if test="orderBy == 'date'">
-            A.recipe_moddate desc, A.recipe_createdate desc, cnt desc
+            A.recipe_createdate desc, cnt desc
         </if>
         <if test="orderBy == 'scrap'">
-            cnt desc, A.recipe_moddate desc, A.recipe_createdate desc
+            cnt desc, A.recipe_createdate desc
         </if>
         limit #{beginIndex} , #{endIndex}
 
@@ -223,5 +223,10 @@
 		delete from recipe_scrap
 		where recipe_no = #{recipeNo}
 		and   user_id = #{userId}
+	</delete>
+
+	<delete id="deleteRecipeCommentByNo" parameterType="int">
+		delete from recipe_comment
+		where recipe_no = #{value}
 	</delete>
 </mapper>

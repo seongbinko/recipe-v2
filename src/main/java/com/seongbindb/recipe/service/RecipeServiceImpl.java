@@ -12,9 +12,11 @@ import com.seongbindb.recipe.vo.Recipe;
 import com.seongbindb.recipe.vo.RecipeCategory;
 import com.seongbindb.recipe.vo.RecipeDetail;
 import com.seongbindb.recipe.vo.RecipeScrap;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -37,13 +39,14 @@ import java.util.Map;
  * @Version : 1.0
  */
 @Service
+@RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService {
 
-    @Autowired
-    RecipeMapper recipeMapper;
 
-    @Autowired
-    CategoryMapper categoryMapper;
+    private final RecipeMapper recipeMapper;
+
+
+    private final CategoryMapper categoryMapper;
 
     /**
      * 레시피 원본 이미지를 저장하는 디렉토리
@@ -83,8 +86,8 @@ public class RecipeServiceImpl implements RecipeService {
             FileUtils.insertImageFile(imgFile, recipeImgOriginDirectory, uniqFileName);
 
             // 4. 메인에 사용할 썸네일 이미지 생성 및 지정된 디렉토리 (recipeImgThumbnailDirectory)에 이미지 저장
-            BufferedImage thumImage = ThumbUtils.createThumbnail(imgFile, 252, 252);
-            ImageIO.write(thumImage, "png", new File(recipeImgThumbnailDirectory, uniqFileName));
+            BufferedImage thumbImage = ThumbUtils.createThumbnail(imgFile, 252, 252);
+            ImageIO.write(thumbImage, "png", new File(recipeImgThumbnailDirectory, uniqFileName));
 
             // 5. RecipeDetail 객체 생성 담기
             RecipeDetail detail = new RecipeDetail();
@@ -143,15 +146,12 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeInfo;
     }
 
+    @Transactional
     @Override
     public void deleteRecipeByRecipeNo(int recipeNo) {
-        // 1. RECIPE_SCRAP TABLE 삭제
         recipeMapper.deleteRecipeScrapByNo(recipeNo);
-
-        // 2. RECIPE_DETAIL TABLE 삭제
+        recipeMapper.deleteRecipeCommentByNo(recipeNo);
         recipeMapper.deleteRecipeDetailByRecipeNo(recipeNo);
-
-        // 3. RECIPE 삭제
         recipeMapper.deleteRecipeByRecipeNo(recipeNo);
     }
 
@@ -161,7 +161,6 @@ public class RecipeServiceImpl implements RecipeService {
         RecipeScrap recipeScrap = new RecipeScrap(userId, recipeNo);
         recipeMapper.insertRecipeScrap(recipeScrap);
 
-        // 총 스크랩 갯수 반환
         return recipeMapper.countScrapByRecipeNo(recipeNo);
     }
 
@@ -303,9 +302,12 @@ public class RecipeServiceImpl implements RecipeService {
             // 4. 조회조건으로 레시피 리스트 가져오기
             List<MainRecipesDto> recipes = recipeMapper.searchRecipesBysearchForm(searchform);
             for (MainRecipesDto recipe : recipes) {
-                recipe.setFullDate(recipe.getModDate());
+                if(recipe.getModDate() == null) {
+                    recipe.setFullDate(recipe.getCreateDate());
+                } else {
+                    recipe.setFullDate(recipe.getModDate());
+                }
             }
-
             Map<String, Object> result = new HashMap<String, Object>();
             result.put("pg", pg);
             result.put("recipes", recipes);

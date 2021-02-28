@@ -6,6 +6,7 @@ package com.seongbindb.recipe.service;
 import com.seongbindb.recipe.mapper.CommentMapper;
 import com.seongbindb.recipe.vo.RecipeComment;
 import com.seongbindb.recipe.vo.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +25,11 @@ import java.util.List;
  * @Version : 1.0
  */
 @Service
+@RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
-	@Autowired
-	CommentMapper commentMapper;
+
+	private final CommentMapper commentMapper;
 
 	@Override
 	public List<RecipeComment> getCommentsByRecipeNo(Integer recipeNo, User user) {
@@ -39,7 +41,11 @@ public class CommentServiceImpl implements CommentService {
 			if (comment.getCommentWriter() != null && comment.getCommentWriter().equals(user.getNickname())) {
 				comment.setRole("w");
 			}
-			comment.setFullDate(comment.getCommentModDate());
+			if(comment.getCommentModDate() ==  null) {
+				comment.setFullDate(comment.getCommentCreateDate());
+			} else {
+				comment.setFullDate(comment.getCommentModDate());
+			}
 		}
 		return comments;
 	}

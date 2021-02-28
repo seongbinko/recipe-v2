@@ -1,3 +1,7 @@
+
+const token = $("meta[name='_csrf']").attr("content");
+const header = $("meta[name='_csrf_header']").attr("content");
+
 $(document).ready(function () {
 
 	// 스크랩여부를 확인해서 스크랩, 스크랩취소 버튼 show 할지 hide 할지 결정
@@ -18,6 +22,9 @@ $("#delete-btn").click(function () {
 		$.ajax({
 			type: "DELETE",
 			url: "/api/recipes/" + recipeNo,
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+			},
 			success: function () {
 				alert("삭제 되었습니다.");
 				location.href = '/recipes';
@@ -35,6 +42,9 @@ $("#do-scrap").click(function () {
 		type: "POST",
 		url: "/api/recipes/scraps/" + recipeNo,
 		dataType: "json",
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
 		success: function (result) {
 			$("#do-scrap").hide();
 			$("#cancel-scrap").show();
@@ -54,6 +64,9 @@ $("#cancel-scrap").on('click', function () {
 		url: "/api/recipes/scraps/" + recipeNo,
 		method: "DELETE",
 		dataType: "json",
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
 		success: function (result) {
 			$("#cancel-scrap").hide();
 			$("#do-scrap").show();
@@ -78,8 +91,11 @@ function getComments() {
 		url: "/api/recipes/" + recipeNo + "/comments",
 		dataType: "json",
 		contentType: "application/json; charset=utf-8",
+		beforeSend: function(xhr){
+			xhr.setRequestHeader(header, token);
+		},
 		success: function (result) {
-			var content = `<div class="comment-option">
+			let content = `<div class="comment-option">
 								<h3 id="comment-title">댓글<span class="badge">${result.length}</span></h3>
 							</div>`;
 			$.each(result, function (index, item) {
@@ -132,7 +148,10 @@ function deleteComment() {
 		var recipeNo = $("#recipeNo").data("recipeno");
 		$.ajax({
 			method: "DELETE",
-			url: "/api/recipes/" + recipeNo + "/comments/" + commentNo
+			url: "/api/recipes/" + recipeNo + "/comments/" + commentNo,
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+			},
 		}).done(function () {
 			alert("삭제가 완료되었습니다.");
 			getComments();
@@ -148,7 +167,7 @@ function deleteComment() {
  */
 function saveComment() {
 	var recipeNo = $("#recipeNo").data("recipeno");
-	var nickName = $("#nickname").data("user-nickname");
+	var nickName = $("#user_nickname").val();
 
 	$(".attach-comment").off().on('click', function () {
 		var data = {}
@@ -166,17 +185,24 @@ function saveComment() {
 		}
 		if (content.trim().length < 15) {
 			alert("현재 타이핑수: " + content.trim().length + " 최소 타이핑 수는 15 이상입니다.");
-			return;
+			return false;
 		}
 		data.commentContent = content;
 		data.recipeNo = recipeNo;
 		data.commentWriter = nickName;
 
-		$.post("/api/recipes/" + recipeNo + "/comments", data, function () {
-			getComments();
+		$.ajax({
+			method: "POST",
+			url: "/api/recipes/" + recipeNo + "/comments/",
+			data: data,
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+			},
+		}).done(function () {
 			alert("댓글이 등록되었습니다.");
+			getComments();
 		}).fail(function () {
-			alert("알수없는 오류가 발생하였습니다");
+			alert("알수 없는 오류가 발생하였습니다.")
 		})
 	})
 }
@@ -188,7 +214,7 @@ function attachReplyDiv() {
 	$(".btn-reply").off().on('click', function () {
 		$("#comment-reply").remove();
 
-		var nickName = $("#nickname").data("user-nickname");
+		var nickName = $("#user_nickname").val();
 		var selector = $(this).closest("ul")
 		var test = $(this).closest("ul").data("comment-writer")
 		var content = `<div id="comment-reply">
@@ -213,7 +239,7 @@ function changeCommentDiv() {
 		}
 		var commentNo = $(this).closest("ul").data("comment-no");
 		var comment = $(this).closest("ul").data("comment");
-		var writer = $("#nickname").data("user-nickname");
+		var writer = $("#user_nickname").val();
 		var selector = $(this).closest("ul")
 		currentHtml = selector;
 
@@ -269,7 +295,10 @@ function updateComment() {
 			type: "PUT",
 			url: "/api/recipes/" + recipeNo + "/comments/" + commentNo,
 			data: comment,
-			contentType: "application/json; charset=utf-8"
+			contentType: "application/json; charset=utf-8",
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(header, token);
+			}
 		}).done(function () {
 			getComments();
 			alert("수정되었습니다.")

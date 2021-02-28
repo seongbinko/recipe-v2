@@ -1,6 +1,3 @@
-/**
- * 레시피 수정 js
- */
 
 $(document).ready(function () {
     // 주소를 따온다.

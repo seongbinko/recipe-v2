@@ -4,6 +4,8 @@ import com.seongbindb.recipe.vo.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Repository
 @Transactional(readOnly = true) // Todo list
 public interface UserMapper {
@@ -14,9 +16,21 @@ public interface UserMapper {
 
     void insertUser(User user);
 
-    User findByEmail(String s);
+    User findByEmail(String email);
 
     int countAllUser();
 
     void updateEmailVerified(User user);
+
+    User findByNickname(String nickname);
+
+    void deleteAll();
+
+    void updateUserProfile(User user);
+
+    void updateUserPassword(User user);
+
+    void updateUserNickname(User user);
+
+    void updateEmailCheckTokenWithTime(User user);
 }

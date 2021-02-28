@@ -3,13 +3,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>로그인</title>
+    <title>레시피</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.0/dist/jdenticon.min.js" async
+            integrity="sha384-VngWWnG9GS4jDgsGEUNaoRQtfBGiIKZTiXwm9KpgAeaRn6Y/1tAFiyXqSzqC8Ga/" crossorigin="anonymous">
+    </script>
 </head>
 <body>
 <header>
@@ -21,71 +25,50 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="form-block">
-        <form action="sign-up" class="needs-validation col-sm-6" method="post">
+        <form action="login" class="needs-validation col-sm-6" method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="form-group">
-                <label for="nickname">닉네임</label>
-                <c:if test="${param.nickname eq null}">
-                    <input aria-describedby="nicknameHelp" class="form-control" id="nickname" name="nickname" required maxlength="20"
-                           minlength="3" placeholder="recipe" type="text">
-                </c:if>
-                <c:if test="${param.nickname ne null}">
-                    <input aria-describedby="nicknameHelp" class="form-control" id="nickname" name="nickname" required maxlength="20"
-                           minlength="3" placeholder="recipe" type="text" value="${param.nickname}">
-                </c:if>
-                <small class="form-text text-muted" id="nicknameHelp">
-                    공백없이 문자와 숫자로만 3자 이상 20자 이내로 입력하세요. 가입후에 변경할 수 있습니다.<br/>
-                </small>
-                <c:if test="${map['nickname'] ne null}">
-                    <small class="form-text text-danger">Nickname
-                        Error: <c:out value="${map['nickname']}"/> </small>
-                </c:if>
+                <label for="username">닉네임 또는 이메일</label>
+                    <input aria-describedby="usernameHelp" class="form-control" id="username" name="username" required maxlength="20"
+                           minlength="3" type="text">
             </div>
-
-            <div class="form-group">
-                <label for="email">이메일</label>
-                <c:if test="${param.email eq null}">
-                    <input aria-describedby="emailHelp" type="email" class="form-control" id="email" name="email" required placeholder="your@email.com">
-                </c:if>
-                <c:if test="${param.email ne null}">
-                    <input aria-describedby="emailHelp" type="email" class="form-control" id="email" name="email" required placeholder="your@email.com" value="${param.email}">
-                </c:if>
-                <small class="form-text text-muted" id="emailHelp">
-                    Recipe는 사용자의 이메일을 공개하지 않습니다.<br/>
-                </small>
-                <c:if test="${map['email'] ne null}">
-                    <small class="form-text text-danger">Email
-                        Error: <c:out value="${map['email']}"/></small>
-                </c:if>
-            </div>
-
             <div class="form-group">
                 <label for="password">패스워드</label>
-                <c:if test="${param.password eq null}">
                     <input aria-describedby="passwordHelp" class="form-control" id="password" name="password" required maxlength="50"
                            minlength="8" type="password">
-                </c:if>
-                <c:if test="${param.password ne null}">
-                    <input aria-describedby="passwordHelp" class="form-control" id="password" name="password" required maxlength="50"
-                           minlength="8" type="password" value="${param.password}">
-                </c:if>
-                <small class="form-text text-muted" id="passwordHelp">
-                    8자 이상 50자 이내로 입력하세요. 영문자, 숫자, 특수기호를 사용할 수 있으며 공백은 사용할 수 없습니다.<br/>
+                <small id="passwordHelp" class="form-text text-muted">
+                    패스워드가 기억나지 않는다면 <strong><u><a href="/email_login">패스워드 없이 로그인하기</a></u></strong>
                 </small>
-                <c:if test="${map['password'] ne null}">
-                    <small class="form-text text-danger">Password
-                        Error: <c:out value="${map['password']}"/></small>
-                </c:if>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me" checked/>
+                <label class="form-check-lable" for="rememberMe" aria-describedby="rememberMeHelp">로그인 유지</label>
             </div>
 
             <div class="form-group">
                 <button aria-describedby="submitHelp" class="btn btn-success btn-block"
                         type="submit">로그인
                 </button>
+                <small id="submitHelp" class="form-text text-muted">
+                    Recipe에 처음 오신거라면 <strong><u><a href="/sign_up">회원가입을 먼저 해주세요</a></u></strong>
+                </small>
             </div>
         </form>
     </div>
-    <div class="col-sm-3"></div>
+    <br>
+    <div class="col-sm-3">
+        <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+            <div class="alert alert-danger" role="alert">
+                <p>이메일(또는 닉네임)과 패스워드가 <br>일치하지 않습니다.</p>
+                <p>또는 확인되지 않는 이메일을 사용했습니다. 이메일을 확인해 주세요.</p>
+                <p>
+                    확인 후 다시 입력하거나,<br><strong><u><a href="/find-password">패스워드 찾기</a></u></strong>를 이용하세요
+                </p>
+            </div>
+            <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session" />
+        </c:if>
+    </div>
 </div>
+<%@include file="../common/footer.html" %>
 </body>
 </html>

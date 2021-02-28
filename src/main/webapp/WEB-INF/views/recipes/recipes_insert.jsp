@@ -3,19 +3,23 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>레시피 등록</title>
+    <title>레시피</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.0/dist/jdenticon.min.js" async
+            integrity="sha384-VngWWnG9GS4jDgsGEUNaoRQtfBGiIKZTiXwm9KpgAeaRn6Y/1tAFiyXqSzqC8Ga/" crossorigin="anonymous">
+    </script>
     <style type="text/css">
         #requiredNotice {
             margin-top: 25px;
         }
 
-        #star {
+        .star {
             color: red;
         }
     </style>
@@ -32,13 +36,14 @@
                 <h2 id="section-title">레시피 등록</h2>
             </div>
             <div class="col-sm-8">
-                <p id="requiredNotice"><span id="star">*</span> 필수입력 사항 | 이미지는 jpg,png 형식만 가능하며 용량은 5mb이하로 제한됩니다.</p>
+                <p id="requiredNotice"><span class="star">*</span> 필수입력 사항 | 이미지는 jpg,png 형식만 가능하며 용량은 5mb이하로 제한됩니다.</p>
             </div>
         </div>
         <form id="recipe-registerform" class="form-horizontal well" method="post" enctype="multipart/form-data"
               action="/api/recipes" onsubmit="return checkSave()">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="form-group">
-                <label class="control-label col-sm-2"><span id="star">*</span> 레시피 제목:</label>
+                <label class="control-label col-sm-2"><span class="star">*</span> 레시피 제목:</label>
                 <div class="col-sm-10">
                     <input id="recipeNo" type="hidden" name="recipeNo"/>
                     <input type="text" class="form-control" id="title" placeholder="레시피 제목을 입력하세요" name="recipeName"
@@ -46,7 +51,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2"><span id="star">*</span> 카테고리:</label>
+                <label class="control-label col-sm-2"><span class="star">*</span> 카테고리:</label>
                 <div class="col-sm-2">
                     <select id="selectBox" class="form-control" name="categoryName" required>
                         <option disabled selected>목록</option>
@@ -72,7 +77,7 @@
                         <input id="recipeDetailNo-first" type="hidden" name="recipeDetailNo" value="">
                         <input type="hidden" name="stepIndex" value="0">
                         <div class="col-sm-3" id="img_wrap">
-                            <img id="pre_img_1" name="pre_img_1" src="/images/logo/headerlogo01.png" width="180px;">
+                            <img id="pre_img_1" name="pre_img_1" src="/images/logo/biglogo.png" width="180px;">
                         </div>
                         <div class="form-group">
                             <textarea id="textarea_1" rows="8" cols="70" style="resize: none;"
@@ -80,7 +85,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2"><span id="star">*</span> 이미지 첨부:</label>
+                        <label class="control-label col-sm-2"><span class="star">*</span> 이미지 첨부:</label>
                         <div class="col-sm-4">
                             <input id="file_1" class="form-control" type="file" accept=".jpg, .png, .PNG, .JPG"
                                    name="img" max="" required/>
@@ -96,12 +101,12 @@
                     <input type="hidden" name="stepIndex">
                     <input type="hidden" name="content">
                     <div class="col-sm-offset-2 col-sm-6">
-                        <img id="pre_img_last" alt="" name="pre_img_last" src="/images/logo/headerlogo01.png"
+                        <img id="pre_img_last" alt="" name="pre_img_last" src="/images/logo/biglogo.png"
                              width="400px;" height="400px;">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-offset-2 col-sm-2"><span id="star">*</span> 이미지 첨부:</label>
+                    <label class="control-label col-sm-offset-2 col-sm-2"><span class="star">*</span> 이미지 첨부:</label>
                     <div class="col-sm-5">
                         <input class="form-control" type="file" name="img" accept=".jpg, .png, .PNG, .JPG" required/>
                     </div>

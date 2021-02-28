@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 
 /**
@@ -29,10 +30,10 @@ public class FileUtils {
      */
     public static String getUniqueOriginalFileName(MultipartFile mtf) {
 
-        String uniqueKey = System.currentTimeMillis() + "";
-        String orginFileName = mtf.getOriginalFilename();
+        String uniqueKey = UUID.randomUUID().toString();
+        String originFileName = mtf.getOriginalFilename();
 
-        return uniqueKey + "_" + orginFileName;
+        return uniqueKey + "_" + originFileName;
     }
 
     /**

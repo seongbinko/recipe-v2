@@ -74,20 +74,18 @@ function search(pageNo, keyword, orderBy, categoryNo) {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (result) {
-            console.log(result)
             var pg = result.pg;
             var recipes = result.recipes
 
             $("#show-recipes").empty();
 
             if (pg.totalRows == 0) {
-                $("#show-recipes").html("<h2>조회하신 레시피에 대한  검색 결과가 없습니다.</h2>")
+                $("#show-recipes").html("<h2 class='text-center'>조회하신 레시피에 대한  검색 결과가 없습니다.</h2>")
                 $("#page-box").empty()
                 return
             }
 
             $.each(recipes, function (index, recipe) {
-
                 let appendInfo = `<div class='col-sm-3'>
 									<div class='thumbnail'>
 										<a href='/recipes/${recipe.recipeNo}'>

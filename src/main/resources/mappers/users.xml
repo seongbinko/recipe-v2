@@ -3,8 +3,8 @@
 <mapper namespace="com.seongbindb.recipe.mapper.UserMapper">
 
     <insert id="insertUser" parameterType="com.seongbindb.recipe.vo.User">
-        insert into recipe_user (user_id, user_password, user_nickname, user_email, user_email_token, user_email_verified)
-        values (#{id}, #{password}, #{nickname}, #{email}, #{emailCheckToken}, #{emailVerified})
+        insert into recipe_user (user_id, user_password, user_nickname, user_email, user_email_token, user_email_verified, user_email_token_generated_date)
+        values (#{id}, #{password}, #{nickname}, #{email}, #{emailCheckToken}, #{emailVerified}, #{emailCheckTokenGeneratedAt})
     </insert>
 
     <select id="existByEmail" parameterType="string" resultType="boolean">
@@ -41,11 +41,42 @@
             user_email as email,
             user_role as role,
             user_email_token as emailCheckToken,
-            user_email_verified as emailVerified
+            user_email_verified as emailVerified,
+            user_email_token_generated_date as emailCheckTokenGeneratedAt,
+            user_moddate  as modDate,
+            user_bio  as bio,
+            user_occupation  as occupation,
+            user_location  as location,
+            user_url  as url,
+            user_image as userImage
         from
             recipe_user
         where
             user_email = #{value}
+    </select>
+
+    <select id="findByNickname" parameterType="string" resultType="com.seongbindb.recipe.vo.User">
+        select
+            user_id as id,
+            user_password as password,
+            user_nickname as nickname,
+            user_createdate as createDate,
+            user_moddate as modDate,
+            user_email as email,
+            user_role as role,
+            user_email_token as emailCheckToken,
+            user_email_verified as emailVerified,
+            user_email_token_generated_date as emailCheckTokenGeneratedAt,
+            user_moddate  as modDate,
+            user_bio  as bio,
+            user_occupation  as occupation,
+            user_location  as location,
+            user_url  as url,
+            user_image as userImage
+        from
+            recipe_user
+        where
+            user_nickname = #{value}
     </select>
 
     <select id="countAllUser" resultType="int">
@@ -59,4 +90,50 @@
             user_email_verified = #{emailVerified}
         where user_email = #{email}
     </update>
+
+    <update id="updateEmailCheckTokenWithTime" parameterType="com.seongbindb.recipe.vo.User">
+        update
+            recipe_user
+        set
+            user_email_token_generated_date = #{emailCheckTokenGeneratedAt},
+            user_email_token = #{emailCheckToken}
+        where
+            user_email = #{email}
+    </update>
+
+    <update id="updateUserProfile" parameterType="com.seongbindb.recipe.vo.User">
+        update
+            recipe_user
+        set
+            user_moddate = #{modDate},
+            user_bio = #{bio},
+            user_occupation = #{occupation},
+            user_location = #{location},
+            user_url = #{url},
+            user_image = #{userImage}
+        where
+            user_email = #{email}
+    </update>
+
+    <update id="updateUserPassword" parameterType="com.seongbindb.recipe.vo.User">
+        update
+            recipe_user
+        set
+            user_password = #{password}
+        where
+            user_email = #{email}
+    </update>
+
+    <update id="updateUserNickname" parameterType="com.seongbindb.recipe.vo.User">
+        update
+            recipe_user
+        set
+            user_nickname = #{nickname}
+        where
+            user_email = #{email}
+    </update>
+
+    <delete id="deleteAll">
+        delete from recipe_user
+    </delete>
 </mapper>

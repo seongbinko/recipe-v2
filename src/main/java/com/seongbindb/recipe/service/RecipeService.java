@@ -39,7 +39,7 @@ public interface RecipeService {
      * </pre>
      *
      * @param recipeNo
-     * @param user     (글 작성자라면 수정버튼, 작성자가 아니라면 스크랩 버튼을 보여주기 위한 파라미터)
+     * @param userId     (글 작성자라면 수정버튼, 작성자가 아니라면 스크랩 버튼을 보여주기 위한 파라미터)
      * @return
      */
     Map<String, Object> getRecipeByRecipeNo(int recipeNo, String userId);

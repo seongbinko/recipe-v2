@@ -6,6 +6,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.*;
 import java.util.*;
@@ -81,7 +83,7 @@ public class App {
         if (nickName.length() > 7) {
             nickName = nickName.substring(0, 7);
         }
-        String userId = nickName + (int) (Math.random() * 1000);
+        String userId = UUID.randomUUID().toString();
 
         if (recipeName.length() > 15) {
             recipeName = recipeName.substring(0, 15);

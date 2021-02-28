@@ -2,6 +2,7 @@ package com.seongbindb.recipe.service;
 
 import com.seongbindb.recipe.mapper.CategoryMapper;
 import com.seongbindb.recipe.vo.RecipeCategory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,10 @@ import org.springframework.stereotype.Service;
  * @Version : 1.0
  */
 @Service
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
-    CategoryMapper categoryMapper;
+    private final CategoryMapper categoryMapper;
 
     @Override
     public RecipeCategory getCategoryByName(String categoryName) {
