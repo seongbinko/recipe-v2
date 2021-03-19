@@ -13,12 +13,18 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>recipe</name>
     <description>recipe_v2 project for Spring Boot</description>
+    <packaging>war</packaging>
 
     <properties>
         <java.version>11</java.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
