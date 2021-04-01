@@ -15,7 +15,7 @@
                 comment_status     as commentStatus,
                 1 as commentLevel
             from
-                recipe_comment
+                RECIPE_COMMENT
             where
                 comment_parent_no is null
               and recipe_no = #{value}
@@ -31,7 +31,7 @@
                 comment_status     as commentStatus,
                 C.commentLevel + 1 as commentLevel
             from
-                recipe_comment B
+                RECIPE_COMMENT B
                     inner join fn_recipe_comment  C on B.comment_parent_no = C.commentNo
         )
         select
@@ -48,31 +48,31 @@
                comment_createdate as commentCreateDate,
                comment_moddate    as commentModDate,
                comment_status     as commentStatus
-        from recipe_comment
+        from RECIPE_COMMENT
         where comment_no = #{value}
     </select>
 
     <select id="getCountRelatedComments" parameterType="int" resultType="int">
         select count(*)
-        from recipe_comment
+        from RECIPE_COMMENT
         where comment_parent_no = #{value}
 
     </select>
 
     <insert id="insertNewComment" parameterType="com.seongbindb.recipe.vo.RecipeComment">
-        insert into recipe_comment (recipe_no, comment_content, comment_writer, comment_parent_no)
+        insert into RECIPE_COMMENT (recipe_no, comment_content, comment_writer, comment_parent_no)
         values (#{recipeNo}, #{commentContent}, #{commentWriter}, #{commentParentNo})
     </insert>
 
     <delete id="deleteComment" parameterType="int">
         delete
-        from recipe_comment
+        from RECIPE_COMMENT
         where comment_no = #{value}
     </delete>
 
     <update id="updateDisableComment" parameterType="com.seongbindb.recipe.vo.RecipeComment">
         update
-            recipe_comment
+            RECIPE_COMMENT
         set comment_content = #{commentContent},
             comment_writer  = #{commentWriter},
             comment_moddate = now(),
@@ -82,7 +82,7 @@
 
     <update id="updateComment" parameterType="com.seongbindb.recipe.vo.RecipeComment">
         update
-            recipe_comment
+            RECIPE_COMMENT
         set comment_content = #{commentContent},
             comment_moddate = now()
         where comment_no = #{commentNo}

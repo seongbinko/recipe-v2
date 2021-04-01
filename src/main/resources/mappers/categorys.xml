@@ -7,7 +7,7 @@
 		    recipe_category_no  as recipeCategoryNo,
 		    recipe_category_name    as recipeCategoryName
 		from 
-		    recipe_category
+		    RECIPE_CATEGORY
 		where 
 		    recipe_category_name = #{value}
 	</select>
@@ -17,7 +17,7 @@
 		    recipe_category_no  as recipeCategoryNo,
 		    recipe_category_name    as recipeCategoryName
 		from 
-		    recipe_category
+		    RECIPE_CATEGORY
 		where 
 		    recipe_category_no = #{value}
 	</select>

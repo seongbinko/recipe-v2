@@ -37,9 +37,9 @@ public class App {
         try {
             long startTime = System.currentTimeMillis();
 
-            int i = 6934537;
+            int i = 6934415;
             int count = 0;
-            while (i < 6934538) {
+            while (i < 6934417) {
 
                 logger.debug("추출 번호 : " + i);
 
@@ -90,13 +90,14 @@ public class App {
         }
 
         // 4. DB 접속 URL
-        String url = "jdbc:mariadb://localhost:3306/recipe?characterEncoding=UTF-8&serverTimezone=UTC";
+        //String url = "jdbc:mariadb://localhost:3306/recipe?characterEncoding=UTF-8&serverTimezone=UTC";
+        String url = "jdbc:mariadb://springboot-database.cqhe5x38bxez.ap-northeast-2.rds.amazonaws.com:3306/recipe?characterEncoding=UTF-8&serverTimezone=UTC";
         Class.forName("org.mariadb.jdbc.Driver");
-        Connection con0 = DriverManager.getConnection(url, "root", "0064");
+        Connection con0 = DriverManager.getConnection(url, "admin", "dndiehsdk93!");
         con0.setAutoCommit(false);
         try {
             // 5-0. 등록된 USER 확인
-            String sql0 = "select user_id , user_nickname from recipe_user where user_nickname = ?";
+            String sql0 = "select user_id , user_nickname from RECIPE_USER where user_nickname = ?";
             PreparedStatement pmst0 = con0.prepareStatement(sql0);
             pmst0.setString(1, nickName);
             String checkNickName = "";
@@ -116,7 +117,7 @@ public class App {
             // USER가 존재하지 않을 경우 -> 신규 등록
             if (!checkNickName.equals(nickName)) {
                 // 5-1. USER 생성
-                String sql1 = "insert into recipe_user(user_id, user_password, user_nickname) values(?,?,?)";
+                String sql1 = "insert into RECIPE_USER(user_id, user_password, user_nickname) values(?,?,?)";
                 PreparedStatement pmst1 = con0.prepareStatement(sql1);
                 pmst1.setString(1, userId);
                 pmst1.setString(2, "zxcv1234!");
@@ -136,7 +137,7 @@ public class App {
             }
 
             // 5-2. RECIPE 생성
-            String sql2 = "insert into recipe(recipe_name, user_id, recipe_category_no) values (?,?,?)";
+            String sql2 = "insert into RECIPE(recipe_name, user_id, recipe_category_no) values (?,?,?)";
             PreparedStatement pmst2 = con0.prepareStatement(sql2);
             pmst2.setString(1, recipeName);
             pmst2.setString(2, userId);
@@ -172,7 +173,7 @@ public class App {
                 String src = file.select("img").attr("src");
                 String filename = System.currentTimeMillis() + src.substring(src.length() - 7);
 
-                String sql3 = "insert into recipe_detail(RECIPE_NO, RECIPE_DETAIL_CONTENT, RECIPE_DETAIL_IMG, RECIPE_DETAIL_STEP) values(?, ?, ?, ?)";
+                String sql3 = "insert into RECIPE_DETAIL(RECIPE_NO, RECIPE_DETAIL_CONTENT, RECIPE_DETAIL_IMG, RECIPE_DETAIL_STEP) values(?, ?, ?, ?)";
 
                 PreparedStatement pmst3 = con0.prepareStatement(sql3);
                 pmst3.setInt(1, recipeNo);
@@ -201,7 +202,7 @@ public class App {
             crawler.downloads(download_list);
 
             // RECIPE_DETAIL 정보 생성
-            String sql4 = "insert into recipe_detail (recipe_no, recipe_detail_img, recipe_detail_step) values(?, ?, ?)";
+            String sql4 = "insert into RECIPE_DETAIL (recipe_no, recipe_detail_img, recipe_detail_step) values(?, ?, ?)";
 
             PreparedStatement pmst4 = con0.prepareStatement(sql4);
             pmst4.setInt(1, recipeNo);
@@ -218,14 +219,14 @@ public class App {
 
             // 대표사진의 DB 파일명과 로컬저장 파일명의 불일치로 인한 조치
             String sql5 = "update  \n" +
-                    "        recipe_detail\n" +
+                    "        RECIPE_DETAIL\n" +
                     "    set recipe_detail_img = (select\n" +
                     "                                 recipe_detail_img\n" +
-                    "                            from recipe_detail \n" +
+                    "                            from RECIPE_DETAIL \n" +
                     "                            where recipe_detail_no = (select\n" +
                     "                                                        recipe_detail_no\n" +
                     "                                                     from\n" +
-                    "                                                        recipe_detail\n" +
+                    "                                                        RECIPE_DETAIL\n" +
                     "                                                     order by recipe_detail_no desc\n" +
                     "                                                     limit 1)\n" +
                     "                            )\n" +
@@ -233,7 +234,7 @@ public class App {
                     "        recipe_detail_no = (select\n" +
                     "                                recipe_detail_no\n" +
                     "                            from\n" +
-                    "                                recipe_detail\n" +
+                    "                                RECIPE_DETAIL\n" +
                     "                            order by recipe_detail_no desc\n" +
                     "                            limit 1,1)";
 

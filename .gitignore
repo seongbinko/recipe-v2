@@ -32,5 +32,13 @@ build/
 ### VS Code ###
 .vscode/
 
-/src/main/resources/application-dev.properties
-/src/main/resources/application.properties
+src/main/resources/application-dev.properties
+src/main/resources/application.properties
+
+# apple
+.DS_Store
+src/.DS_Store
+src/main/.DS_Store
+src/main/resources/.DS_Store
+src/main/webapp/.DS_Store
+src/main/webapp/images/.DS_Store

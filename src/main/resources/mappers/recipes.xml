@@ -6,9 +6,9 @@
         <selectKey keyProperty="recipeNo" resultType="int" order="BEFORE">
             select
                 coalesce(max(recipe_no),0) +1
-            from recipe
+            from RECIPE
         </selectKey>
-        insert into recipe
+        insert into RECIPE
         (recipe_no, user_id, recipe_name, recipe_category_no)
         values
         (#{recipeNo}, #{userId}, #{recipeName}, #{recipeCategoryNo})
@@ -19,16 +19,16 @@
             select
                 coalesce(max(recipe_detail_no),0) + 1
             from
-            recipe_detail
+            RECIPE_DETAIL
         </selectKey>
-        insert into recipe_detail
+        insert into RECIPE_DETAIL
         (recipe_detail_no, recipe_no, recipe_detail_content, recipe_detail_img, recipe_detail_step)
         values
         (#{recipeDetailNo}, #{recipeNo}, #{content}, #{recipeDetailImg}, #{recipeDetailStep})
     </insert>
 
     <insert id="insertRecipeScrap" parameterType="com.seongbindb.recipe.vo.RecipeScrap">
-		insert into recipe_scrap
+		insert into RECIPE_SCRAP
 		(user_id, recipe_no)
 		values
 		(#{userId}, #{recipeNo})
@@ -45,7 +45,7 @@
 		    A.recipe_status       as recipeStatus,
 		    A.recipe_category_no  as recipeCategoryNo
 		from
-		    recipe A, recipe_user B 
+		    RECIPE A, RECIPE_USER B
 		where
 			A.user_id = B.user_id
 		and recipe_no = #{value}
@@ -59,7 +59,7 @@
 			recipe_detail_img		as recipeDetailImg,
 			recipe_detail_step		as recipeDetailStep
 		from
-			recipe_detail
+			RECIPE_DETAIL
 		where
 			recipe_no = #{value}
 		order by
@@ -73,7 +73,7 @@
 			recipe_no			as recipeNo,
 			recipe_scrap_date	as recipeScrapDate
 		from
-			recipe_scrap
+			RECIPE_SCRAP
 		where
 			recipe_no = #{value}
 		order by
@@ -84,7 +84,7 @@
 		select
 			count(*)
 		from
-			recipe_scrap
+			RECIPE_SCRAP
 		where
 			recipe_no = #{value}
 	</select>
@@ -93,7 +93,7 @@
 		select
 		    recipe_detail_no
 		from
-		    recipe_detail
+		    RECIPE_DETAIL
 		where
 		    recipe_no = #{value}
 	</select>
@@ -106,7 +106,7 @@
 			recipe_detail_img		as recipeDetailImg,
 			recipe_detail_step		as recipeDetailStep
 		from
-			recipe_detail
+			RECIPE_DETAIL
 		where
 			recipe_detail_no = #{value}
 	</select>
@@ -116,7 +116,7 @@
         select
         count(*)
         from
-        recipe
+        RECIPE
         <where>
             <if test="categoryNo != null">
                 recipe_category_no = #{categoryNo}
@@ -140,16 +140,16 @@
         COALESCE(cnt,0) cnt,
         B.recipe_detail_img thumbnailImg
         from
-        recipe A left outer join (
+        RECIPE A left outer join (
         select
         count(*) cnt,recipe_no
         from
-        recipe_scrap
+        RECIPE_SCRAP
         group by recipe_no
         ) C
         on A.recipe_no = C.recipe_no ,
-        recipe_detail B,
-        recipe_user D
+        RECIPE_DETAIL B,
+        RECIPE_USER D
         where
         A.recipe_no = B.recipe_no
         and A.recipe_status = 'Y'
@@ -168,14 +168,14 @@
         <if test="orderBy == 'scrap'">
             cnt desc, A.recipe_createdate desc
         </if>
-        limit #{beginIndex} , #{endIndex}
-
+        limit #{beginIndex} , 8 <!-- #{endIndex}-->
     </select>
+
 
     <!-- 수정 SQL  -->
     <update id="updateRecipe" parameterType="com.seongbindb.recipe.vo.Recipe">
 		update 
-			recipe
+			RECIPE
 		set
 			recipe_name = #{recipeName},
 			recipe_category_no = #{recipeCategoryNo},
@@ -186,7 +186,7 @@
 
     <update id="updateRecipeDetail" parameterType="com.seongbindb.recipe.vo.RecipeDetail">
 		update
-			recipe_detail
+			RECIPE_DETAIL
 		set
 			recipe_detail_content = #{content},
 			recipe_detail_img	  = #{recipeDetailImg},
@@ -199,34 +199,34 @@
     <delete id="deleteRecipeDetailByDetailNo" parameterType="int">
 		delete 
 		from	
-			recipe_detail
+			RECIPE_DETAIL
 		where 	
 			recipe_detail_no = #{value}
 	</delete>
 
     <delete id="deleteRecipeByRecipeNo" parameterType="int">
-		delete from recipe
+		delete from RECIPE
 		where recipe_no = #{value}
 	</delete>
 
     <delete id="deleteRecipeDetailByRecipeNo" parameterType="int">
-		delete from recipe_detail
+		delete from RECIPE_DETAIL
 		where recipe_no = #{value}
 	</delete>
 
     <delete id="deleteRecipeScrapByNo" parameterType="int">
-		delete from recipe_scrap
+		delete from RECIPE_SCRAP
 		where recipe_no = #{value}
 	</delete>
 
     <delete id="deleteMyRecipeScraps" parameterType="map">
-		delete from recipe_scrap
+		delete from RECIPE_SCRAP
 		where recipe_no = #{recipeNo}
 		and   user_id = #{userId}
 	</delete>
 
 	<delete id="deleteRecipeCommentByNo" parameterType="int">
-		delete from recipe_comment
+		delete from RECIPE_COMMENT
 		where recipe_no = #{value}
 	</delete>
 </mapper>

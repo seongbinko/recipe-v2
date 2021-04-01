@@ -61,7 +61,7 @@ public class RecipeServiceImpl implements RecipeService {
     private String recipeImgThumbnailDirectory;
 
     public Integer insertRecipe(MultipartHttpServletRequest request, String userId, RecipeRegisterform recipeRegisterform) throws Exception {
-        //String test = request.getSession().getServletContext().getRealPath("/");
+        String rootPath = request.getSession().getServletContext().getRealPath("/");
 
         //System.getProperty("user.dir");
 
@@ -83,11 +83,11 @@ public class RecipeServiceImpl implements RecipeService {
             String uniqFileName = FileUtils.getUniqueOriginalFileName(recipeRegisterform.getImg().get(i));
 
             // 3.지정된 디렉토리(recipeImgOriginDirectory)에 이미지 저장
-            FileUtils.insertImageFile(imgFile, recipeImgOriginDirectory, uniqFileName);
+            FileUtils.insertImageFile(imgFile, rootPath + recipeImgOriginDirectory, uniqFileName);
 
             // 4. 메인에 사용할 썸네일 이미지 생성 및 지정된 디렉토리 (recipeImgThumbnailDirectory)에 이미지 저장
             BufferedImage thumbImage = ThumbUtils.createThumbnail(imgFile, 252, 252);
-            ImageIO.write(thumbImage, "png", new File(recipeImgThumbnailDirectory, uniqFileName));
+            ImageIO.write(thumbImage, "png", new File(rootPath + recipeImgThumbnailDirectory, uniqFileName));
 
             // 5. RecipeDetail 객체 생성 담기
             RecipeDetail detail = new RecipeDetail();
@@ -175,6 +175,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public void updateRecipe(MultipartHttpServletRequest request, RecipeRegisterform recipeRegisterform) throws Exception {
+        String rootPath = request.getSession().getServletContext().getRealPath("/");
 
         Integer reicpeNo = recipeRegisterform.getRecipeNo();
 
@@ -223,11 +224,11 @@ public class RecipeServiceImpl implements RecipeService {
                 String uniqFileName = FileUtils.getUniqueOriginalFileName(recipeRegisterform.getImg().get(i));
 
                 // 3. 지정된 디렉토리(recipeImgOriginDirectory)에 이미지 저장
-                FileUtils.insertImageFile(imgFile, recipeImgOriginDirectory, uniqFileName);
+                FileUtils.insertImageFile(imgFile, rootPath + recipeImgOriginDirectory, uniqFileName);
 
                 // 4. 메인에 사용할 썸네일 이미지 생성 및 지정된 디렉토리 (recipeImgThumbnailDirectory)에 이미지 저장
                 BufferedImage thumImage = ThumbUtils.createThumbnail(imgFile, 252, 252);
-                ImageIO.write(thumImage, "png", new File(recipeImgThumbnailDirectory, uniqFileName));
+                ImageIO.write(thumImage, "png", new File(rootPath + recipeImgThumbnailDirectory, uniqFileName));
 
                 // 5. RecipeDetail 객체 생성 담기
                 RecipeDetail detail = new RecipeDetail();
@@ -269,11 +270,11 @@ public class RecipeServiceImpl implements RecipeService {
                     String uniqFileName = FileUtils.getUniqueOriginalFileName(recipeRegisterform.getImg().get(i));
 
                     // 3. 지정된 디렉토리(recipeImgOriginDirectory)에 이미지 저장
-                    FileUtils.insertImageFile(imgFile, recipeImgOriginDirectory, uniqFileName);
+                    FileUtils.insertImageFile(imgFile, rootPath + recipeImgOriginDirectory, uniqFileName);
 
                     // 4. 메인에 사용할 썸네일 이미지 생성 및 지정된 디렉토리 (recipeImgThumbnailDirectory)에 이미지 저장
                     BufferedImage thumImage = ThumbUtils.createThumbnail(imgFile, 252, 252);
-                    ImageIO.write(thumImage, "png", new File(recipeImgThumbnailDirectory, uniqFileName));
+                    ImageIO.write(thumImage, "png", new File(rootPath + recipeImgThumbnailDirectory, uniqFileName));
 
                     // 5. 변경된 경로
                     recipeDetail.setRecipeDetailImg(uniqFileName);

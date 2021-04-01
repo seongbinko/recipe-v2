@@ -3,7 +3,7 @@
 <mapper namespace="com.seongbindb.recipe.mapper.UserMapper">
 
     <insert id="insertUser" parameterType="com.seongbindb.recipe.vo.User">
-        insert into recipe_user (user_id, user_password, user_nickname, user_email, user_email_token, user_email_verified, user_email_token_generated_date)
+        insert into RECIPE_USER (user_id, user_password, user_nickname, user_email, user_email_token, user_email_verified, user_email_token_generated_date)
         values (#{id}, #{password}, #{nickname}, #{email}, #{emailCheckToken}, #{emailVerified}, #{emailCheckTokenGeneratedAt})
     </insert>
 
@@ -11,7 +11,7 @@
         select
                case when exists(
                            SELECT 1
-                           FROM recipe_user
+                           FROM RECIPE_USER
                            WHERE user_email = #{email}
                		   )
 			   then 'true'
@@ -23,7 +23,7 @@
 		select
 			case when exists(
 					SELECT 1
-					FROM recipe_user
+					FROM RECIPE_USER
 					WHERE user_nickname = #{nickname}
 				)
 					 then 'true'
@@ -50,7 +50,7 @@
             user_url  as url,
             user_image as userImage
         from
-            recipe_user
+            RECIPE_USER
         where
             user_email = #{value}
     </select>
@@ -74,18 +74,18 @@
             user_url  as url,
             user_image as userImage
         from
-            recipe_user
+            RECIPE_USER
         where
             user_nickname = #{value}
     </select>
 
     <select id="countAllUser" resultType="int">
         select count(*)
-        from recipe_user
+        from RECIPE_USER
     </select>
     <update id="updateEmailVerified" parameterType="com.seongbindb.recipe.vo.User">
         update
-            recipe_user
+            RECIPE_USER
         set
             user_email_verified = #{emailVerified}
         where user_email = #{email}
@@ -93,7 +93,7 @@
 
     <update id="updateEmailCheckTokenWithTime" parameterType="com.seongbindb.recipe.vo.User">
         update
-            recipe_user
+            RECIPE_USER
         set
             user_email_token_generated_date = #{emailCheckTokenGeneratedAt},
             user_email_token = #{emailCheckToken}
@@ -103,7 +103,7 @@
 
     <update id="updateUserProfile" parameterType="com.seongbindb.recipe.vo.User">
         update
-            recipe_user
+            RECIPE_USER
         set
             user_moddate = #{modDate},
             user_bio = #{bio},
@@ -117,7 +117,7 @@
 
     <update id="updateUserPassword" parameterType="com.seongbindb.recipe.vo.User">
         update
-            recipe_user
+            RECIPE_USER
         set
             user_password = #{password}
         where
@@ -126,7 +126,7 @@
 
     <update id="updateUserNickname" parameterType="com.seongbindb.recipe.vo.User">
         update
-            recipe_user
+            RECIPE_USER
         set
             user_nickname = #{nickname}
         where
@@ -134,6 +134,6 @@
     </update>
 
     <delete id="deleteAll">
-        delete from recipe_user
+        delete from RECIPE_USER
     </delete>
 </mapper>
