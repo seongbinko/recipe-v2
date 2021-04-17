@@ -133,7 +133,7 @@
             user_email = #{email}
     </update>
 
-    <delete id="deleteAll">
-        delete from RECIPE_USER
+    <delete id="deleteByNickname" parameterType="string">
+        delete from RECIPE_USER where nickname = #{value}
     </delete>
 </mapper>

@@ -24,8 +24,6 @@ public interface UserMapper {
 
     User findByNickname(String nickname);
 
-    void deleteAll();
-
     void updateUserProfile(User user);
 
     void updateUserPassword(User user);
@@ -33,4 +31,6 @@ public interface UserMapper {
     void updateUserNickname(User user);
 
     void updateEmailCheckTokenWithTime(User user);
+
+    void deleteByNickname(String nickname);
 }
