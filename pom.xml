@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.seongbindb.</groupId>
-    <artifactId>recipe</artifactId>
+    <artifactId>recipe-v2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>recipe</name>
     <description>recipe_v2 project for Spring Boot</description>
