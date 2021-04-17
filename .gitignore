@@ -32,8 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-src/main/resources/application-dev.properties
-src/main/resources/application.properties
+## application-properties
+src/main/resources/application-auth.properties
 
 # apple
 .DS_Store
