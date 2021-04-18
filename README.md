@@ -10,7 +10,7 @@
 - 웹 어플리케이션 서버 : Apache Tomcat 9.0
 - 형상관리: git
 - 간단 소개 : 개인들의 레시피를 공유하는 커뮤니티
-- 사이트 : [레시피 공유 커뮤니티](http://13.125.228.41/)
+- 사이트 : [레시피 공유 커뮤니티](http://ec2-3-36-243-80.ap-northeast-2.compute.amazonaws.com:8080/)
 - 시연 영상: [유투브 링크](https://youtu.be/S1_22_-wCho)
 
 <details>
