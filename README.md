@@ -196,9 +196,12 @@ TODO List
 - application.auth.properties는 깃허브에 올리지 않고 따로 보관
 - 레시피 공유 사이트 url 수정
 
-### 2021.04.19 10:10
+### 2021.04.19
 
 - .travis.yml 추가
 - appspec.yml 추가 (codedeploy 부분)
 - 무중단 배포를 위한 profileController 추가
 - application-real.properties 추가
+- 무중단 배포를 위한 스크립트 추가
+   - stop.sh, start.sh, health.sh, switch.sh, profile.sh
+- appspec.yml 무중단 배포를 위한 hooks 변경
