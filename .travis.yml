@@ -6,6 +6,9 @@ branches:
   only:
     - master
 
+before_install:
+  - chmod +x mvnw
+
 # Travis CI 서버의 Home
 cache:
   directories:
@@ -15,4 +18,4 @@ cache:
 notifications:
   email:
     recipients:
-      - wnrhd1082@Email.com
+      - wnrhd1082@gmail.com
