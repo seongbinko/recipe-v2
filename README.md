@@ -183,7 +183,7 @@ TODO List
    - 80 포트 8080포트로 포워딩
    - jdk 11 설치
    - nohup으로 서버 실행
-   - http://13.125.228.41/
+   - http://ec2-3-36-243-80.ap-northeast-2.compute.amazonaws.com
    
 - Todo
    - 리눅스 환경에서 파일 업로드 된 이미지 불러오기
