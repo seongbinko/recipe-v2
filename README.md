@@ -207,3 +207,9 @@ TODO List
          - stop.sh, start.sh, health.sh, switch.sh, profile.sh
       - appspec.yml 무중단 배포를 위한 hooks 변경
    - Ec2 이전으로 application.properties 메일서비스 url 변경
+   
+- recipe_insert.jsp (레시피 등록 기능 disabled 처리) 
+   
+### Todo
+
+- 이미지 업로드 EC2 업로드 방식에서 AWS S3 업로드 방식으로 변경

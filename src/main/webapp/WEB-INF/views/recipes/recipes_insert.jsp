@@ -114,7 +114,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-4">
-                    <button id="btn-update" type="submit" class="btn btn-primary btn-lg" value="">등록</button>
+                    <button id="btn-update" type="submit" class="btn btn-primary btn-lg" value="" disabled>등록</button>
                     <button id="btn-cancle" type="button" class="btn btn-default btn-lg" value="">취소</button>
                 </div>
             </div>
