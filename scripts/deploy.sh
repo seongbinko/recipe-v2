@@ -3,8 +3,6 @@
 REPOSITORY=/home/ubuntu/app/step2
 PROJECT_NAME=recipe-v2  #1
 
-cd $REPOSITORY/$PROJECT_NAME/ #2
-
 echo "> Build 파일 복사"
 
 cp $REPOSITORY/zip/*.war $REPOSITORY/
@@ -25,7 +23,7 @@ fi
 
 echo ">새 어플리케이션 배포"
 
-JAR_NAME=$(ls -tr $REPOSITORY/ | grep *.war | tail -n 1)
+JAR_NAME=$(ls -tr $REPOSITORY/*.war | tail -n 1)
 
 echo "> JAR Name: $JAR_NAME"
 
