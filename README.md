@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/seongbinko/recipe-v2.svg?branch=master)](https://travis-ci.org/seongbinko/recipe-v2)
+
 # Recipe-v2 프로젝트 (2020.12.20)
 
 ## 개요
