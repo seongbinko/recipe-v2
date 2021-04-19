@@ -12,7 +12,7 @@ branches:
 # Travis CI 서버의 Home
 cache:
   directories:
-    - '$HOME/.m2'
+    - '$HOME/.m2/repository'
 
 # MAVEN 프로젝트는 필요 없음
 #script: "./mvnw package"
