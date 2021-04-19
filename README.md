@@ -197,10 +197,13 @@ TODO List
 
 ### 2021.04.19
 
-- .travis.yml 추가
-- appspec.yml 추가 (codedeploy 부분)
-- 무중단 배포를 위한 profileController 추가
-- application-real.properties 추가
-- 무중단 배포를 위한 스크립트 추가
-   - stop.sh, start.sh, health.sh, switch.sh, profile.sh
-- appspec.yml 무중단 배포를 위한 hooks 변경
+- 무중단 배포 구현
+   - github → trivis CI → aws s3 → code deploy → ec2  ← Nginx (8081, 8082)  ← client
+      - .travis.yml 추가
+      - appspec.yml 추가 (codedeploy 부분)
+      - 무중단 배포를 위한 profileController 추가
+      - application-real.properties 추가
+      - 무중단 배포를 위한 스크립트 추가
+         - stop.sh, start.sh, health.sh, switch.sh, profile.sh
+      - appspec.yml 무중단 배포를 위한 hooks 변경
+   - Ec2 이전으로 application.properties 메일서비스 url 변경
