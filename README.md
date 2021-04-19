@@ -198,4 +198,5 @@ TODO List
 
 ### 2021.04.19 10:10
 
-- .travis.yml 추가 
+- .travis.yml 추가
+- appspec.yml 추가 (codedeploy 부분)
