@@ -5,25 +5,15 @@ PROJECT_NAME=recipe-v2  #1
 
 cd $REPOSITORY/$PROJECT_NAME/ #2
 
-echo "> Git pull"
-git pull #3
+echo "> Build 파일 복사"
 
-echo "> 프로젝트 Build 시작"
-./mvnw package #4
+cp $REPOSITORY/zip/*.war $REPOSITORY/
 
-echo "> step1 디렉토리로 이동"
+echo "> 현재 구동중인 앱 pid 확인"
 
-cd $REPOSITORY
+CURRENT_PID=$(pgrep -fl recipe-v2 | grep jar | awk '{print $1}')
 
-echo "> Build 파일복사"
-
-cp $REPOSITORY/$PROJECT_NAME/target/*.war $REPOSITORY/ #5
-
-echo "> 현재구동중인 앱pid 확인"
-
-CURRENT_PID=$(pgrep -f ${PROJECT_NAME}*.jar) #6
-
-echo ">현재구동중인 애플리케이션pid: $CURRENT_PID"
+echo ">현재구동중인 애플리케이션 pid: $CURRENT_PID"
 
 if [ -z "$CURRENT_PID" ]; then   #7
         echo "> 현재구동중인 앱이 없으므로 종료하지 않습니다."
@@ -39,4 +29,10 @@ JAR_NAME=$(ls -tr $REPOSITORY/ | grep *.war | tail -n 1)
 
 echo "> JAR Name: $JAR_NAME"
 
-nohup java -jar -Dspring.config.location=classpath:/application.properties,/home/ubuntu/app/application-auth.properties $REPOSITORY/$JAR_NAME  2>&1 &
+echo "> $JAR_NAME 에 실행권한 추가"
+
+chmod +x $JAR_NAME
+
+echo "> $JAR_NAME 실행"
+
+nohup java -jar -Dspring.config.location=classpath:/application.properties,/home/ubuntu/app/application-auth.properties $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
