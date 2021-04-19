@@ -201,3 +201,4 @@ TODO List
 - .travis.yml 추가
 - appspec.yml 추가 (codedeploy 부분)
 - 무중단 배포를 위한 profileController 추가
+- application-real.properties 추가
