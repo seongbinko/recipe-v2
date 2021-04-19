@@ -1,0 +1,24 @@
+language: java
+jdk:
+  - openjdk11
+
+#before_install:
+#   - chmod +x mvnw
+
+branches:
+  only:
+    - master
+
+# Travis CI 서버의 Home
+cache:
+  directories:
+    - '$HOME/.m2/'
+
+# MAVEN 프로젝트는 필요 없음
+#script: "./mvnw package"
+
+# CI 실행 완료시 메일로 알람
+notifications:
+  email:
+    recipients:
+      - wnrhd1082@gmail.com

@@ -188,8 +188,12 @@ TODO List
    - 리눅스 환경에서 파일 업로드 된 이미지 불러오기
    - 도메인 구매
 
-### 2021.04.17 20:00
+### 2021.04.17
 
-application-dev.properties 보안을 위해 삭제
+- application-dev.properties 보안을 위해 삭제
+- application.auth.properties는 깃허브에 올리지 않고 따로 보관
+- 레시피 공유 사이트 url 수정
 
-application.auth.properties는 깃허브에 올리지 않고 따로 보관
+### 2021.04.19 10:10
+
+- .travis.yml 추가 
