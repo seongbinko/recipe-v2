@@ -208,7 +208,11 @@ TODO List
       - appspec.yml 무중단 배포를 위한 hooks 변경
    - Ec2 이전으로 application.properties 메일서비스 url 변경
    
-- recipe_insert.jsp (레시피 등록 기능 disabled 처리) 
+- recipe_insert.jsp (레시피 등록 기능 disabled 처리)
+
+### 2021.05.12
+
+- License 추가
    
 ### Todo
 
