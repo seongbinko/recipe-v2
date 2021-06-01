@@ -14,34 +14,6 @@
 - 사이트 : [레시피 공유 커뮤니티](http://ec2-3-36-243-80.ap-northeast-2.compute.amazonaws.com/)
 - 시연 영상: [유투브 링크](https://youtu.be/S1_22_-wCho)
 
-<details>
-<summary>Recipe(restful api) 프로젝트 개요(v1)</summary>
-<div markdown="1">       
-
-# 레시피 공유 커뮤니티 (with crawling)
-![screencapture-localhost-8090-2020-07-18-12_56_54](https://user-images.githubusercontent.com/60464424/87844224-3b435580-c8f6-11ea-9c44-dfd6d72b4d08.png)
-## 프로젝트 특징
-- 전자정부표준프레임워크에 대한 이해와 이를 이용한 웹 어플리케이션 구현
-- RESTful Api
-- 더미 데이터를 직접 등록이 아닌 크롤링을 통하여 DB에 등록 (https://github.com/seongbinko/recipe/tree/master/src/main/java/kr/co/edsk/recipe/crawler)
-## 개요
-- 명칭 : RECIPE
-- 개발 인원 : 1명
-- 개발 기간 :  2020.05.11 ~ 2020. 06. 25 (35일)
-- 담당 역할 :  주제선정, 분석/설계, 인프라 구축 및 레이아웃, 개발, 테스트, 시연
-- 주요 기능 : 레시피 등록 조회 수정 삭제, 스크랩, 레시피 댓글 답글 대댓글(계층형 구조), 더미데이터를 크롤링 방식으로 수집
-- 개발 환경 : 전자정부프레임워크 3.9
-- 데이터베이스 : ORACLE 11g
-- 웹 어플리케이션 서버 : Apache Tomcat 9.0
-- 형상관리 툴 : SVN
-- 간단 소개 : 개인들의 레시피를 공유하는 커뮤니티
-
-## [프로젝트 계획서.doc](https://github.com/seongbinko/recipe/raw/master/%EA%B0%9C%EB%B0%9C%EB%AC%B8%EC%84%9C/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EA%B3%84%ED%9A%8D%EC%84%9C.doc)
-## [프로젝트 설계서.pptx](https://github.com/seongbinko/recipe/raw/master/%EA%B0%9C%EB%B0%9C%EB%AC%B8%EC%84%9C/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EC%84%A4%EA%B3%84%EC%84%9C.pptx)
-
-</div>
-</details>
-
 ## 목표
 1. Recipe 프로젝트 배포 및 서비스 운영
 2. 운영 환경에 맞게 프로젝트 전환 및 기능 추가
